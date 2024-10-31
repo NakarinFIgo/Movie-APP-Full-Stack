@@ -1,4 +1,4 @@
-import Axios,{AxiosResponse} from "axios";
+import Axios, { AxiosResponse } from "axios"
 
 // กำหนดประเภทของข้อมูลที่ส่งไปใน request
 interface LoginData {
@@ -20,7 +20,7 @@ interface AuthResponse {
 
 // สร้าง login function
 const authLogin = (data: LoginData): Promise<AxiosResponse<AuthResponse>> => {
-  return Axios.post<AuthResponse>("/authenticate", data, {
+  return Axios.post<AuthResponse>("/login", data, {
     baseURL: import.meta.env.VITE_BASE_URL_API,
     headers: {
       "Content-Type": "application/json",
@@ -29,4 +29,15 @@ const authLogin = (data: LoginData): Promise<AxiosResponse<AuthResponse>> => {
   })
 }
 
-export { authLogin }
+// สร้าง logout function
+const authLogout = (): Promise<AxiosResponse> => {
+  return Axios.get("/logout", {
+    baseURL: import.meta.env.VITE_BASE_URL_API,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  })
+}
+
+export { authLogin, authLogout }
